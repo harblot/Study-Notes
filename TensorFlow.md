@@ -21,7 +21,36 @@
   conda install tensorflow-gpu cudnn cudatoolkit
   ```
 
+  测试是否能进行GPU加速
   
+  - 方法一
+  
+    运行
+  
+    ```python	
+    import tensorflow as tf
+    print(tf.test.is_gpu_available())
+    ```
+  
+    若输出`True`则安装成功
+  
+  - 方法二
+  
+    运行
+  
+    ```python
+    import tensorflow as tf
+    print(tf.config.list_physical_devices())
+    ```
+  
+    若输出
+  
+    ```bash
+    [PhysicalDevice(name='/physical_device:CPU:0', device_type='CPU'),
+     PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+    ```
+  
+    则安装成功
 
 ## 自定义训练过程
 
@@ -58,5 +87,3 @@
   ```python
   np.any(np.isnan(dataset))
   ```
-
-  
