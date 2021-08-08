@@ -3,5 +3,8 @@
 
 
 * [Introduction](README.md)
-* [TensorFlow简介](TensorFlow.md)
+* [TensorFlow](TensorFlow.md)
+
+- [Anaconda](anaconda.md)
+- [软件著作权申请指南](软件著作权申请指南.md)
 
