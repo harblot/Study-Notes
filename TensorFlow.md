@@ -1,3 +1,5 @@
+[toc]
+
 # TensorFlow
 
 官方文档地址：https://tensorflow.google.cn/
@@ -51,6 +53,30 @@
     ```
   
     则安装成功
+
+## 构建模型之前
+
+- 在tensorflow2.3以上版本中需要加上
+
+  ```python
+  import tensorflow as tf
+  gpus = tf.config.experimental.list_physical_devices('GPU')
+  for gpu in gpus:
+      tf.config.experimental.set_memory_growth(gpu, True)
+  ```
+
+  这三行代码一方面可以使tensorflow按需取用显存，而不是默认模式下的全部占完。同时也可以避免如下的未知错误：
+
+  ```bash
+  UnknownError: 2 root error(s) found.
+    (0) Unknown:  Failed to get convolution algorithm. This is probably because cuDNN failed to initialize, so try looking to see if a warning log message was printed above.
+  	 [[node encoder/static_handle/res_net/conv2d/Conv2D (defined at /media/E/研究生/program/paper2/code/opt_action_TFT/model/tft.py:308) ]]
+  	 [[gradient_tape/encoder/static_handle/embedding_2/embedding_lookup/Reshape/_42]]
+    (1) Unknown:  Failed to get convolution algorithm. This is probably because cuDNN failed to initialize, so try looking to see if a warning log message was printed above.
+  	 [[node encoder/static_handle/res_net/conv2d/Conv2D (defined at /media/E/研究生/program/paper2/code/opt_action_TFT/model/tft.py:308) ]]
+  0 successful operations.
+  0 derived errors ignored. [Op:__inference_training_39566]
+  ```
 
 ## 自定义训练过程
 
