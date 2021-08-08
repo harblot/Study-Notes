@@ -78,6 +78,90 @@
         optimizer_2.apply_gradients(zip(grads_2, model_2.trainable_variables))
 	```
 
+## 子类化构建模型
+
+- .build()方法
+
+  `build(self, input_shape)`: This method can be used to create weights that depend on the shape(s) of the input(s), using `add_weight()`. `__call__()` will automatically build the layer (if it has not been built yet) by calling `build()`.
+
+  模型结构需要根据输入tensor的形状进行确定时应该重写此方法，在官方例子中构建了如下的全连接网络：
+
+  ```python
+  class Linear(keras.layers.Layer):
+      def __init__(self, units=32):
+          super(Linear, self).__init__()
+          self.units = units
+  
+      def build(self, input_shape):
+          self.w = self.add_weight(
+              shape=(input_shape[-1], self.units),
+              initializer="random_normal",
+              trainable=True,
+          )
+          self.b = self.add_weight(
+              shape=(self.units,), initializer="random_normal", trainable=True
+          )
+  
+      def call(self, inputs):
+          return tf.matmul(inputs, self.w) + self.b
+  ```
+
+  例子并未说明自定义层具有多输入的情况，做以下实验验证具有多输入的情形：
+
+  定义具有两输入， 两输出， 两层全连接层的自定义层`Multi_dense`
+
+  ```python
+  import tensorflow as tf
+  import numpy as np
+  class Multi_dense(tf.keras.layers.Layer):
+      def __init__(self):
+          super(Multi_dense, self).__init__()
+          self.dense_1 = tf.keras.layers.Dense(3)
+          self.dense_2 = tf.keras.layers.Dense(3)
+      
+      def build(self, inputs_shape):
+          print(inputs_shape[0])
+          print(inputs_shape[1])
+          self.out_dense_1 = tf.keras.layers.Dense(inputs_shape[0][-1])
+          self.out_dense_2 = tf.keras.layers.Dense(inputs_shape[1][-1])
+      
+      def call(self, x):
+          x_1 = x[0]
+          x_2 = x[1]
+          x_1 = self.dense_1(x_1)
+          x_2 = self.dense_2(x_2)
+          
+          x_1 = self.out_dense_1(x_1)
+          x_2 = self.out_dense_2(x_2)
+          return x_1, x_2
+  ```
+
+  构建模型和输入数据
+
+  ```python
+  customize_dense = Multi_dense()
+  a = np.array([[1,2,4,5]])
+  b = np.array([[1,2,3]])
+  out_1, out_2 = customize_dense([a,b])
+  print(out_1.numpy())
+  print(out_2.numpy())
+  ```
+
+  打印结果为：
+
+  ```bash
+  (1, 4)
+  (1, 3)
+  [[-0.9102302  1.6765692  6.460695   7.1120706]]
+  [[ 0.13991946  0.41044232 -0.27278608]]
+  ```
+
+  说明自定义层创建成功，能输出和输入张量相同shape的输出张量。
+
+  `.build()`只能传入一个输入，若有多个输入张量，则需要将它们放进一个`list`中。例如`customize_dense([a,b])`。
+
+  
+
 ## Debug
 
 - 训练loss出现nan
