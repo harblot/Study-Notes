@@ -1,5 +1,3 @@
-[toc]
-
 # TensorFlow
 
 官方文档地址：https://tensorflow.google.cn/
@@ -197,3 +195,36 @@
   ```python
   np.any(np.isnan(dataset))
   ```
+
+- 自定义模型训练过程，每次验证损失不一样
+
+  自定义了模型的训练过程，发现模型训练完成后在验证集上的`loss`多次重复运行每次输出都不一样。
+
+  原因是构建验证数据集用了如下代码：
+
+  ```python
+  val_data = tf.data.Dataset.from_tensor_slices({'x':(val_dataset['some_data_1'],
+                                                      val_dataset['some_data_1']),
+                                                 'y':y_val_data})
+  val_data = val_data.shuffle(buffer_size=1024).batch(64)
+  ```
+
+  文档中关于`tf.data.Dataset.shuffle()`的描述为
+  
+  Randomly shuffles the elements of this dataset.
+  
+  This dataset fills a buffer with `buffer_size` elements, then randomly samples elements from this buffer, replacing the selected elements with new elements. For perfect shuffling, a buffer size greater than or equal to the full size of the dataset is required.
+  
+  For instance, if your dataset contains 10,000 elements but `buffer_size` is set to 1,000, then `shuffle` will initially select a random element from only the first 1,000 elements in the buffer. Once an element is selected, its space in the buffer is replaced by the next (i.e. 1,001-st) element, maintaining the 1,000 element buffer.
+  
+  按道理来讲`.shuffle()`只会改变传入数据的顺序而不会对数据重复采样或者少采样。但在实作中发现将`.shuffle()`删除后解决问题。
+  
+  ```python
+  val_data = tf.data.Dataset.from_tensor_slices({'x':(val_dataset['some_data_1'],
+                                                      val_dataset['some_data_1']),
+                                                 'y':y_val_data})
+  val_data = val_data.batch(64)
+  ```
+  
+  
+
