@@ -60,6 +60,26 @@
                 dtype='datetime64[ns]', freq=None)
   ```
 
+- `datetime`转`str`格式
+
+  ```python
+  import pandas as pd
+  time = ['2018-10-31 03:00:00', '2018-10-31 04:00:00', '2018-10-31 05:00:00', '2018-10-31 06:00:00']
+  time = pd.to_datetime(time)
+  print(type(time[0]))
+  time = time.strftime("%Y-%m-%d %H:%M:%S")
+  print(type(time[0]))
+  print(time)
+  ```
+  
+  ```bash
+  <class 'pandas._libs.tslibs.timestamps.Timestamp'>
+  <class 'str'>
+  Index(['2018-10-31 03:00:00', '2018-10-31 04:00:00', '2018-10-31 05:00:00',
+         '2018-10-31 06:00:00'],
+        dtype='object')
+  ```
+  
 - 增加或减少时间
 
   ```python
