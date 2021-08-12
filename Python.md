@@ -44,5 +44,36 @@
                 dtype='datetime64[ns]', freq='H')
   ```
 
+
+- `str`格式转`datetime`格式
+
+  ```python
+  import pandas as pd
+  time = ['2018-10-31 03:00:00', '2018-10-31 04:00:00', '2018-10-31 05:00:00', '2018-10-31 06:00:00']
+  time = pd.to_datetime(time)
+  print(time)
+  ```
+
+  ```python
+  DatetimeIndex(['2018-10-31 03:00:00', '2018-10-31 04:00:00',
+                 '2018-10-31 05:00:00', '2018-10-31 06:00:00'],
+                dtype='datetime64[ns]', freq=None)
+  ```
+
+- 增加或减少时间
+
+  ```python
+  import datetime
+  time = datetime.datetime.now()
+  time_plus_one_hour = time+datetime.timedelta(hours=1)
+  print(time)
+  print(time_plus_one_hour)
+  ```
+
+  ```bash
+  2021-08-12 15:37:24.183138
+  2021-08-12 16:37:24.183138
+  ```
+
   
 
