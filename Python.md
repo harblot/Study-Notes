@@ -97,3 +97,33 @@
 
   
 
+# numpy
+
+- 合并两数组
+
+  ```python
+  import numpy as np
+  a = np.array([[1,2,3]])
+  b = np.array([[1,2,3]])
+  result = np.concatenate([a,b], axis=0)
+  print(result)
+  ```
+
+  ```bash
+  [[1 2 3]
+   [1 2 3]]
+  ```
+
+- 提取某些列
+
+  ```python
+  a = np.array([[1,2,3],[4,5,6]])
+  a[:,[0,2]]
+  ```
+
+  ```bash
+  array([[1, 3],
+         [4, 6]])
+  ```
+
+  
