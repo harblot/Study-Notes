@@ -126,4 +126,41 @@
          [4, 6]])
   ```
 
-  
+# Pandas
+
+- 多个dataframe写入同一个`.xlsx`的不同sheet：
+
+  - 写入
+
+    ```python
+    import pandas as pd
+    a = pd.DataFrame({'a':[1,2,3],'b':[4,5,6]})
+    y = pd.DataFrame({'x':[11,22,33],'y':[44,55,66]})
+    writer = pd.ExcelWriter('test.xlsx')
+    a.to_excel(writer, 'a')
+    y.to_excel(writer, 'y')
+    writer.save()
+    ```
+
+  - 读取
+
+    ```python
+    c = pd.read_excel('test.xlsx', sheet_name='a', index_col=0)
+    d = pd.read_excel('test.xlsx', sheet_name='y', index_col=0)
+    print(c)
+    print(d)
+    ```
+
+    ```bash
+       a  b
+    0  1  4
+    1  2  5
+    2  3  6
+        x   y
+    0  11  44
+    1  22  55
+    2  33  66
+    ```
+
+    
+
