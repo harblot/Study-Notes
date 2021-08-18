@@ -162,5 +162,80 @@
     2  33  66
     ```
 
-    
+- 读取数据并绘制可交互的图标
+
+  spyder编辑器中，`工具>偏好>IPython控制台>绘图>图形的后端>选择(自动)`
+
+  ```python
+  import pandas as pd
+  dataset = pd.read_csv('./dataset/dataset.csv', index_col='time')
+  dataset.index = pd.to_datetime(dataset.index)
+  dataset = dataset[['3721-W', '3722-W', '5921-W', '5173-W']]
+  dataset.plot()
+  ```
+
+# 内置方法
+
+- `list`的解包
+
+  ```python
+  a = [1,2,3,4]
+  b = [1,2,*a]
+  print(b)
+  ```
+
+  ```bash
+  [1, 2, 1, 2, 3, 4]
+  ```
+
+# 深拷贝与浅拷贝
+
+- `list`相关
+
+  ```python
+  a = [1, 2, 1, 2, 3, 4]
+  b = [a for _ in range(3)]
+  print(id(a)) # id()函数返回对象在内存中的地址
+  print(id(b[0]))
+  print(id(b[1]))
+  print(id(b[2]))
+  b[0][1] = 7
+  print(b)
+  print(a)
+  ```
+
+  ```bash
+  140205612152192
+  140205612152192
+  140205612152192
+  140205612152192
+  [[1, 7, 1, 2, 3, 4], [1, 7, 1, 2, 3, 4], [1, 7, 1, 2, 3, 4]]
+  [1, 7, 1, 2, 3, 4]
+  ```
+
+  `copy.deepcopy`方法可以将浅拷贝转换为深拷贝
+
+  ```python
+  import copy
+  a = [1, 2, 1, 2, 3, 4]
+  b = [copy.deepcopy(a) for _ in range(3)]
+  print(id(a))
+  print(id(b[0]))
+  print(id(b[1]))
+  print(id(b[2]))
+  b[0][1] = 7
+  print(b)
+  print(a)
+  ```
+
+  ```bash
+  140207530513792
+  140207530513920
+  140207530514304
+  140207530514816
+  [[1, 7, 1, 2, 3, 4], [1, 2, 1, 2, 3, 4], [1, 2, 1, 2, 3, 4]]
+  [1, 2, 1, 2, 3, 4]
+  ```
+
+  
 
