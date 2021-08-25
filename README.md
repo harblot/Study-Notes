@@ -8,6 +8,7 @@
 - [Anaconda](anaconda.md)
 - [软件著作权申请指南](软件著作权申请指南.md)
 - [Python](Python.md)
+- [LaTex](LaTex.md)
 
 # 我应该如何加入协作？
 

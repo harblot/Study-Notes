@@ -126,6 +126,16 @@
          [4, 6]])
   ```
 
+- 数学方法
+
+  ```python
+  import numpy as np
+  np.square() # 平方
+  np.sqrt() # 平方根
+  np.maximum() # 从两个输入中选大
+  np.max() # 从序列输入中选大
+  ```
+
 # Pandas
 
 - 多个dataframe写入同一个`.xlsx`的不同sheet：
@@ -174,6 +184,59 @@
   dataset.plot()
   ```
 
+- 设置双`index`
+
+  ```python
+  import pandas as pd
+  flood_event = ['19-06-19', '19-07-09', '19-05-26', '19-06-30', '19-02-12']
+  aim_hourly = [6, 12]
+  site = ['3721-W','3722-W','5921-W','5173-W']
+  indicators = ['q10', 'q50', 'q90', 'NSE', 'QT', 'QL']
+  table = np.zeros((len(flood_event)*len(aim_hourly), len(site)+2))
+  table = pd.DataFrame(table, columns=['flood', 'horizon', *site])
+  table['horizon'] = [i for j in flood_event for i in aim_hourly]
+  table['flood'] = [j for j in flood_event for i in aim_hourly]
+  # =====================构建dataframe======================================
+  table.set_index(['flood', 'horizon'], inplace=True) #设置双index，inplace参数为true时直接修改原表，或者可写下面形式
+  # table = table.set_index(['flood', 'horizon'])
+  print(table)
+  print(table.loc['19-06-19',6])
+  table['3722-W'].loc['19-06-19',6] = 6
+  print(table)
+  ```
+
+  ```bash
+                    3721-W  3722-W  5921-W  5173-W
+  flood    horizon                                
+  19-06-19 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-07-09 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-05-26 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-06-30 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-02-12 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  3721-W    0.0
+  3722-W    0.0
+  5921-W    0.0
+  5173-W    0.0
+  Name: (19-06-19, 6), dtype: float64
+                    3721-W  3722-W  5921-W  5173-W
+  flood    horizon                                
+  19-06-19 6           0.0     6.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-07-09 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-05-26 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-06-30 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  19-02-12 6           0.0     0.0     0.0     0.0
+           12          0.0     0.0     0.0     0.0
+  ```
+
 # 内置方法
 
 - `list`的解包
@@ -186,6 +249,17 @@
 
   ```bash
   [1, 2, 1, 2, 3, 4]
+  ```
+
+- 保留$n$位小数
+
+  ```python
+  a = 0.21315215
+  print(round(a, 4))
+  ```
+
+  ```bash
+  0.2132
   ```
 
 # 深拷贝与浅拷贝
@@ -235,6 +309,34 @@
   140207530514816
   [[1, 7, 1, 2, 3, 4], [1, 2, 1, 2, 3, 4], [1, 2, 1, 2, 3, 4]]
   [1, 2, 1, 2, 3, 4]
+  ```
+
+# 列表相关操作
+
+- 交错填充数字
+
+  希望得到这样一个列表`a = [1,2,1,2,1,2,1,2]`
+
+  ```python
+  a = [i for j in range(5) for i in [1,2]]
+  print(a)
+  ```
+
+  ```python
+  [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+  ```
+
+- 填充连续数字
+
+  希望得到这样一个列表`a = [1,1,2,2,3,3]`
+
+  ```python
+  a = [j for j in range(1, 4) for i in range(2)]
+  print(a)
+  ```
+
+  ```python
+  [1, 1, 2, 2, 3, 3]
   ```
 
   
