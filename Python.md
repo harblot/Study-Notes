@@ -1,6 +1,6 @@
 # Python相关代码
 
-## 时间序列
+# 时间序列
 
 - 生成时间序列index
 
@@ -95,7 +95,6 @@
   2021-08-12 16:37:24.183138
   ```
 
-  
 
 # numpy
 
@@ -339,5 +338,23 @@
   [1, 1, 2, 2, 3, 3]
   ```
 
-  
+# 作图
 
+- linux下图片中文字符乱码
+
+  在系统中安装相应字体
+
+  ```python
+  import matplotlib.pyplot as plt
+  plt.rcParams['font.sans-serif'] = ['SimHei']
+  plt.rcParams['axes.unicode_minus'] = False
+  ```
+
+- 设置坐标标签的字体大小
+
+  ```python
+  import matplotlib.pyplot as plt
+  plt.xlabel(..., fontsize=20)
+  ```
+
+  
