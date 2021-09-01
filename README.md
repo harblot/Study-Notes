@@ -27,4 +27,3 @@ SSH->git@github.com:SPOREIII/Study-Notes.git
 
 GitBook->https://tang-wh.gitbook.io/study/
 
-test
