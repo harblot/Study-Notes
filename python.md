@@ -1,8 +1,10 @@
-# Python相关代码
+# Python
 
-# 时间序列
+## Python相关代码
 
-- 生成时间序列index
+## 时间序列
+
+* 生成时间序列index
 
   ```python
   import pandas as pd
@@ -44,8 +46,7 @@
                 dtype='datetime64[ns]', freq='H')
   ```
 
-
-- `str`格式转`datetime`格式
+* `str`格式转`datetime`格式
 
   ```python
   import pandas as pd
@@ -60,7 +61,7 @@
                 dtype='datetime64[ns]', freq=None)
   ```
 
-- `datetime`转`str`格式
+* `datetime`转`str`格式
 
   ```python
   import pandas as pd
@@ -71,7 +72,7 @@
   print(type(time[0]))
   print(time)
   ```
-  
+
   ```bash
   <class 'pandas._libs.tslibs.timestamps.Timestamp'>
   <class 'str'>
@@ -79,8 +80,8 @@
          '2018-10-31 06:00:00'],
         dtype='object')
   ```
-  
-- 增加或减少时间
+
+* 增加或减少时间
 
   ```python
   import datetime
@@ -95,10 +96,9 @@
   2021-08-12 16:37:24.183138
   ```
 
+## numpy
 
-# numpy
-
-- 合并两数组
+* 合并两数组
 
   ```python
   import numpy as np
@@ -113,7 +113,7 @@
    [1 2 3]]
   ```
 
-- 提取某些列
+* 提取某些列
 
   ```python
   a = np.array([[1,2,3],[4,5,6]])
@@ -125,7 +125,7 @@
          [4, 6]])
   ```
 
-- 数学方法
+* 数学方法
 
   ```python
   import numpy as np
@@ -135,11 +135,10 @@
   np.max() # 从序列输入中选大
   ```
 
-# Pandas
+## Pandas
 
-- 多个dataframe写入同一个`.xlsx`的不同sheet：
-
-  - 写入
+* 多个dataframe写入同一个`.xlsx`的不同sheet：
+  * 写入
 
     ```python
     import pandas as pd
@@ -151,7 +150,7 @@
     writer.save()
     ```
 
-  - 读取
+  * 读取
 
     ```python
     c = pd.read_excel('test.xlsx', sheet_name='a', index_col=0)
@@ -170,8 +169,7 @@
     1  22  55
     2  33  66
     ```
-
-- 读取数据并绘制可交互的图标
+* 读取数据并绘制可交互的图标
 
   spyder编辑器中，`工具>偏好>IPython控制台>绘图>图形的后端>选择(自动)`
 
@@ -183,7 +181,7 @@
   dataset.plot()
   ```
 
-- 设置双`index`
+* 设置双`index`
 
   ```python
   import pandas as pd
@@ -236,9 +234,9 @@
            12          0.0     0.0     0.0     0.0
   ```
 
-# 内置方法
+## 内置方法
 
-- `list`的解包
+* `list`的解包
 
   ```python
   a = [1,2,3,4]
@@ -250,7 +248,7 @@
   [1, 2, 1, 2, 3, 4]
   ```
 
-- 保留$n$位小数
+* 保留$n$位小数
 
   ```python
   a = 0.21315215
@@ -261,9 +259,9 @@
   0.2132
   ```
 
-# 深拷贝与浅拷贝
+## 深拷贝与浅拷贝
 
-- `list`相关
+* `list`相关
 
   ```python
   a = [1, 2, 1, 2, 3, 4]
@@ -310,9 +308,9 @@
   [1, 2, 1, 2, 3, 4]
   ```
 
-# 列表相关操作
+## 列表相关操作
 
-- 交错填充数字
+* 交错填充数字
 
   希望得到这样一个列表`a = [1,2,1,2,1,2,1,2]`
 
@@ -325,7 +323,7 @@
   [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
   ```
 
-- 填充连续数字
+* 填充连续数字
 
   希望得到这样一个列表`a = [1,1,2,2,3,3]`
 
@@ -338,9 +336,9 @@
   [1, 1, 2, 2, 3, 3]
   ```
 
-# 作图
+## 作图
 
-- linux下图片中文字符乱码
+* linux下图片中文字符乱码
 
   在系统中安装相应字体
 
@@ -350,11 +348,10 @@
   plt.rcParams['axes.unicode_minus'] = False
   ```
 
-- 设置坐标标签的字体大小
+* 设置坐标标签的字体大小
 
   ```python
   import matplotlib.pyplot as plt
   plt.xlabel(..., fontsize=20)
   ```
 
-  
