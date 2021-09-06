@@ -338,6 +338,34 @@
   [1, 1, 2, 2, 3, 3]
   ```
 
+- 删除元素
+
+  删除`list`中第一个和`val`等值的元素
+
+  ```python
+  a = [1,2,34,2,5]
+  a.remove(2)
+  print(a)
+  ```
+
+  ```bash
+  [1, 34, 2, 5]
+  ```
+
+  删除索引对应的元素
+
+  ```python
+  a = [1,2,3,4,5]
+  b = a.pop(3)
+  print(a)
+  print(b)
+  ```
+
+  ```bash
+  [1, 2, 3, 5]
+  4
+  ```
+
 # 作图
 
 - linux下图片中文字符乱码
@@ -357,4 +385,98 @@
   plt.xlabel(..., fontsize=20)
   ```
 
+# 将字典保存为json
+
+```python
+import json
+a = ['氢','氦','锂','铍','硼','碳','氮','氧','氟','氖',
+     '钠','镁','铝','硅','磷','硫','氯','氩','钾',
+     '钙','钪','钛','钒','铬','锰','铁','钴','镍',
+     '铜','锌','镓','锗','砷','硒','溴','氪','铷',
+     '锶','钇','锆','铌','钼','锝','钌','铑','钯','银','镉','铟','锡','锑',
+     '碲','碘','氙','铯','钡','镧','铈','镨','钕','钷','钐','铕','钆','铽',
+     '镝','钬','铒','铥','镱','镥','铪','钽','钨','铼','锇','铱','铂','金',
+     '汞','铊','铅']
+b = ['H','He','Li','Be','B','C','N','O','F','Ne',
+     'Na','Mg','Al','Si','P','S','Cl','Ar','K',
+     'Ca','Sc','Ti','V','Cr','Mn','Fe','Co',
+     'Ni','Cu','Zn','Ga','Ge','As','Se','Br','Kr','Rb','Sr','Y',
+     'Zr','Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd','In','Sn','Sb','Te','I',
+     'Xe','Cs','Ba','La','Ce','Pr','Nd','Pm','Sm','Eu','Gd','Tb','Dy','Ho',
+     'Er','Tm','Yb','Lu','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg','Tl',
+     'Pb']
+zh2en = dict(zip(a,b))
+en2zh = dict(zip(b,a))
+
+info_json = json.dumps(zh2en,sort_keys=False, indent=4, separators=(',',':'))
+f=open('elements_zh2en.json', 'w')
+f.write(info_json)
+f.close()
+# 保存
+f2 = open('elements_en2zh.json', 'r')
+info_data = json.load(f2)
+# 读取
+
+test = {'A':{'cost':200,'name':'666','element':{'pb':0.2,'al':0.8}},
+        'B':{'cost':500,'name':'777','element':{'pb':0.5,'al':0.2}}}
+info_json = json.dumps(test,sort_keys=False, indent=4, separators=(',',':'))
+f=open('test.json', 'w')
+f.write(info_json)
+f.close()
+
+f2 = open('test.json', 'r')
+info_data = json.load(f2)
+```
+
+- 如果保存了空字典
+
+  ```python
+  test = {}
+  info_json = json.dumps(test,sort_keys=False, indent=4, separators=(',',':'))
+  f=open('test.json', 'w')
+  f.write(info_json)
+  f.close()
   
+  f2 = open('test.json', 'r')
+  info_data = json.load(f2)
+  print(len(info_data))
+  ```
+
+  ```bash
+  0
+  ```
+
+# 字典相关操作
+
+```python
+dic = {'a':1,'b':2,'c':3}
+print(dic.keys())
+print(dic.values())
+print(dic.items())
+```
+
+```bash
+dict_keys(['a', 'b', 'c'])
+dict_values([1, 2, 3])
+dict_items([('a', 1), ('b', 2), ('c', 3)])
+```
+
+```python
+dic = {'a':[0,0],'b':[0.2,1],'c':[0,0.2],'d':[0.1,0.2]}
+print(sum([1 for i in dic.values() if i[0] > 0 or i[1]>0]))
+```
+
+```bash
+3
+```
+
+# 集合
+
+集合`set`创建一个无序不重复的元素序列
+
+```python
+a = set([1,2,3,4,3,2])
+a = {[1,2,3,4,3,2]}
+b = set()
+```
+
